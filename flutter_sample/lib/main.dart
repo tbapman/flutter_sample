@@ -1,111 +1,377 @@
 import 'package:flutter/material.dart';
+import 'package:camera/camera.dart';
 
-void main() => runApp(MyApp());
+import './prac/first_app.dart';
+import './prac/second_app.dart';
+import './prac/scaffold_sample1.dart';
+import './prac/scaffold_sample2.dart';
+import './prac/scaffold_sample3.dart';
+import './prac/scaffold_sample4.dart';
+import './prac/scaffold_sample5.dart';
+import './prac/bottom_navigation_bar.dart';
+import './prac/drawer_demo.dart';
 
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
-      ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
+import './prac/button/raised_button_sample.dart';
+import './prac/button/floating_action_button_sample.dart';
+import './prac/button/flat_button.dart';
+import './prac/button/icon_button_sample.dart';
+
+import './prac/future/basic_demo.dart';
+import './prac/future/infinite_list_view.dart';
+import './prac/future/infinite_grid_view.dart';
+import './prac/future/custom_scroll_view_test_route.dart';
+import './prac/future/scroll_controller_test_route.dart';
+import './prac/scroll_notification_test_route.dart';
+
+import './prac/will_pop_scope_test_route.dart';
+import './prac/color_luminance.dart';
+import './prac/theme_test_route.dart';
+import './prac/dialog_sample.dart';
+import './prac/show_custom_dialog.dart';
+import './prac/drag_sample.dart';
+import './prac/scale_sample.dart';
+
+import './prac/animation/animation_sample.dart';
+import './prac/animation/hero_ainmation_sample.dart';
+import './prac/animation/stagger_animation.dart';
+import './prac/animation/animated_switcher_counter_route.dart';
+import './prac/gradient_button_route.dart';
+import './prac/turn_box_test.dart';
+import './prac/custom_paint_toute.dart';
+import './prac/gradient_circular_progress_route.dart';
+
+//whatsApp
+import './whatsApp/main.dart';
+
+//todo
+// import './todo/main.dart';
+import './prac/camera_sample.dart';
+List<CameraDescription> cameras = [];
+Future<Null> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  cameras = await availableCameras();
+  runApp(MaterialApp(
+    title: 'Named Routes Demo',
+    // Start the app with the "/" named route. In this case, the app starts
+    // on the FirstScreen widget.
+    initialRoute: '/',
+    routes: {
+      // When navigating to the "/" route, build the FirstScreen widget.
+      '/': (context) => FirstScreen(),
+      // When navigating to the "/second" route, build the SecondScreen widget.
+      '/one': (context) => FirstApp(),
+      '/two': (context) => SecondApp(),
+      '/three': (context) => ScaffoldSample1(),
+      '/four': (context) => ScaffoldSample2(),
+      '/five': (context) => BaiscAppBarSample(),
+      '/six': (context) => AppBarBottomSample(),
+      '/seven': (context) => TabbedAppBar(),
+      '/eight': (context) => BottomNavigationBarSample(),
+      '/nine': (context) => DrawerDemo(),
+      '/ten': (context) => RaiseButtonSample(),
+      '/eleven': (context) => FloatingActionButtonSample(),
+      '/twelve': (context) => FlatButtonExapmle(),
+      '/thirteen': (context) => IconButtonSample(),
+      '/fourteen': (context) => BasicDemo(),
+      '/fifteen': (context) => InfiniteListView(),
+      '/sixteen': (context) => InfiniteGridView(),
+      '/seventeen': (context) => CustomScrollViewTestRoute(),
+      '/eighteen': (context) => ScrollControllerTestRoute(),
+      '/nineteen': (context) => ScrollNotificationTestRoute(),
+      '/twenty': (context) => WillPopScopeTestRoute(),
+      '/twenty-one': (context) => ColorLuminance(),
+      '/twenty-two': (context) => ThemeTestRoute(),
+      '/twenty-three': (context) => ShowCustomDialog(),
+      '/twenty-four': (context) => DialogSample(),
+      '/twenty-five': (context) => DragSample(),
+      '/twenty-six': (context) => ScaleTextRoute(),
+      '/twenty-seven': (context) => ScaleAnimationRoute(),
+      '/twenty-eight': (context) => HeroAnimationRoute(),
+      '/twenty-nine': (context) => StaggerAnimation(),
+      '/thirty': (context) => AnimatedSwitcherCounterRoute(),
+      '/thirty-one': (context) => GradientButtonRoute(),
+      '/thirty-two': (context) => TurnBoxRoute(),
+      '/thirty-three': (context) => CustomPaintRoute(),
+      '/thirty-four': (context) => GradientCircularProgressRoute(),
+      '/thirty-five': (context) => WhatsApp(cameras:cameras),
+      '/thirty-six': (context) => CameraScreen(cameras),
+      // '/thirty-seven': (context) => ToDo(),
+    },
+  ));
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
-
+class FirstScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     return Scaffold(
       appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
+        title: Text('First Screen'),
       ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.display1,
-            ),
-          ],
-        ),
+      body: ListView(
+        children: <Widget>[
+          RaisedButton(
+            child: Text('todo'),
+            onPressed: () {
+              // Navigate to the second screen using a named route.
+              Navigator.pushNamed(context, '/thirty-seven');
+            },
+          ),
+          RaisedButton(
+            child: Text('Camera实例'),
+            onPressed: () {
+              // Navigate to the second screen using a named route.
+              Navigator.pushNamed(context, '/thirty-six');
+            },
+          ),
+            RaisedButton(
+            child: Text('WhatsApp'),
+            onPressed: () {
+              // Navigate to the second screen using a named route.
+              Navigator.pushNamed(context, '/thirty-five');
+            },
+          ),
+           RaisedButton(
+            child: Text('圆形渐变进度条'),
+            onPressed: () {
+              // Navigate to the second screen using a named route.
+              Navigator.pushNamed(context, '/thirty-four');
+            },
+          ),
+           RaisedButton(
+            child: Text('五子棋'),
+            onPressed: () {
+              // Navigate to the second screen using a named route.
+              Navigator.pushNamed(context, '/thirty-three');
+            },
+          ),
+            RaisedButton(
+            child: Text('自定义旋转'),
+            onPressed: () {
+              // Navigate to the second screen using a named route.
+              Navigator.pushNamed(context, '/thirty-two');
+            },
+          ),
+            RaisedButton(
+            child: Text('按钮封装'),
+            onPressed: () {
+              // Navigate to the second screen using a named route.
+              Navigator.pushNamed(context, '/thirty-one');
+            },
+          ),
+           RaisedButton(
+            child: Text('通用动画切换'),
+            onPressed: () {
+              // Navigate to the second screen using a named route.
+              Navigator.pushNamed(context, '/thirty');
+            },
+          ),
+           RaisedButton(
+            child: Text('交织动画'),
+            onPressed: () {
+              // Navigate to the second screen using a named route.
+              Navigator.pushNamed(context, '/twenty-nine');
+            },
+          ),
+          RaisedButton(
+            child: Text('飞行组件'),
+            onPressed: () {
+              // Navigate to the second screen using a named route.
+              Navigator.pushNamed(context, '/twenty-eight');
+            },
+          ),
+          RaisedButton(
+            child: Text('基本动画'),
+            onPressed: () {
+              // Navigate to the second screen using a named route.
+              Navigator.pushNamed(context, '/twenty-seven');
+            },
+          ),
+          RaisedButton(
+            child: Text('图片缩放'),
+            onPressed: () {
+              // Navigate to the second screen using a named route.
+              Navigator.pushNamed(context, '/twenty-six');
+            },
+          ),
+          RaisedButton(
+            child: Text('拖拽'),
+            onPressed: () {
+              // Navigate to the second screen using a named route.
+              Navigator.pushNamed(context, '/twenty-five');
+            },
+          ),
+          RaisedButton(
+            child: Text('对话框'),
+            onPressed: () {
+              // Navigate to the second screen using a named route.
+              Navigator.pushNamed(context, '/twenty-four');
+            },
+          ),
+          RaisedButton(
+            child: Text('自定义对话框'),
+            onPressed: () {
+              // Navigate to the second screen using a named route.
+              Navigator.pushNamed(context, '/twenty-three');
+            },
+          ),
+          RaisedButton(
+            child: Text('路由换肤'),
+            onPressed: () {
+              // Navigate to the second screen using a named route.
+              Navigator.pushNamed(context, '/twenty-two');
+            },
+          ),
+          RaisedButton(
+            child: Text('颜色亮度'),
+            onPressed: () {
+              // Navigate to the second screen using a named route.
+              Navigator.pushNamed(context, '/twenty-one');
+            },
+          ),
+          RaisedButton(
+            child: Text('导航返回拦截'),
+            onPressed: () {
+              // Navigate to the second screen using a named route.
+              Navigator.pushNamed(context, '/twenty');
+            },
+          ),
+          RaisedButton(
+            child: Text('滚动百分比'),
+            onPressed: () {
+              // Navigate to the second screen using a named route.
+              Navigator.pushNamed(context, '/nineteen');
+            },
+          ),
+          RaisedButton(
+            child: Text('滚动监听'),
+            onPressed: () {
+              // Navigate to the second screen using a named route.
+              Navigator.pushNamed(context, '/eighteen');
+            },
+          ),
+          RaisedButton(
+            child: Text('自定义滚动'),
+            onPressed: () {
+              // Navigate to the second screen using a named route.
+              Navigator.pushNamed(context, '/seventeen');
+            },
+          ),
+          RaisedButton(
+            child: Text('网格'),
+            onPressed: () {
+              // Navigate to the second screen using a named route.
+              Navigator.pushNamed(context, '/sixteen');
+            },
+          ),
+          RaisedButton(
+            child: Text('无限上拉列表'),
+            onPressed: () {
+              // Navigate to the second screen using a named route.
+              Navigator.pushNamed(context, '/fifteen');
+            },
+          ),
+          RaisedButton(
+            child: Text('获取网络数据'),
+            onPressed: () {
+              // Navigate to the second screen using a named route.
+              Navigator.pushNamed(context, '/fourteen');
+            },
+          ),
+          RaisedButton(
+            child: Text('按钮之Icon Button'),
+            onPressed: () {
+              // Navigate to the second screen using a named route.
+              Navigator.pushNamed(context, '/thirteen');
+            },
+          ),
+          RaisedButton(
+            child: Text('按钮之Flat Button'),
+            onPressed: () {
+              // Navigate to the second screen using a named route.
+              Navigator.pushNamed(context, '/twelve');
+            },
+          ),
+          RaisedButton(
+            child: Text('按钮之Floating Action Button'),
+            onPressed: () {
+              // Navigate to the second screen using a named route.
+              Navigator.pushNamed(context, '/eleven');
+            },
+          ),
+          RaisedButton(
+            child: Text('按钮之Raised Button'),
+            onPressed: () {
+              // Navigate to the second screen using a named route.
+              Navigator.pushNamed(context, '/ten');
+            },
+          ),
+          RaisedButton(
+            child: Text('抽屉'),
+            onPressed: () {
+              // Navigate to the second screen using a named route.
+              Navigator.pushNamed(context, '/nine');
+            },
+          ),
+          RaisedButton(
+            child: Text('底部导航栏'),
+            onPressed: () {
+              // Navigate to the second screen using a named route.
+              Navigator.pushNamed(context, '/eight');
+            },
+          ),
+          RaisedButton(
+            child: Text('选项卡式的AppBar'),
+            onPressed: () {
+              // Navigate to the second screen using a named route.
+              Navigator.pushNamed(context, '/seven');
+            },
+          ),
+          RaisedButton(
+            child: Text('具有自定义底部widget的AppBar'),
+            onPressed: () {
+              // Navigate to the second screen using a named route.
+              Navigator.pushNamed(context, '/six');
+            },
+          ),
+          RaisedButton(
+            child: Text('Scaffold组件3'),
+            onPressed: () {
+              // Navigate to the second screen using a named route.
+              Navigator.pushNamed(context, '/five');
+            },
+          ),
+          RaisedButton(
+            child: Text('Scaffold组件2'),
+            onPressed: () {
+              // Navigate to the second screen using a named route.
+              Navigator.pushNamed(context, '/four');
+            },
+          ),
+          RaisedButton(
+            child: Text('Scaffold组件'),
+            onPressed: () {
+              // Navigate to the second screen using a named route.
+              Navigator.pushNamed(context, '/three');
+            },
+          ),
+          RaisedButton(
+            child: Text('布局'),
+            onPressed: () {
+              // Navigate to the second screen using a named route.
+              Navigator.pushNamed(context, '/two');
+            },
+          ),
+          RaisedButton(
+            child: Text('第一个组件'),
+            onPressed: () {
+              // Navigate to the second screen using a named route.
+              Navigator.pushNamed(context, '/one');
+            },
+          ),
+        ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
+
+
